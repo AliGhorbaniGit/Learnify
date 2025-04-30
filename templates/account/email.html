@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+    {% load static %}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>LEANYFI | Email</title>
+    <link rel="shortcut icon" href="{% static 'core' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core' %}">
+    <meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="{% static 'core'%}" type="image/x-icon">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'core'%}" rel="stylesheet" type="text/css">
+
+    <style>
+        @keyframes backgroundChange {
+            0% {
+                background-color: #e09c1f;
+            }
+            /* Initial color */
+            100% {
+                background-color: #e7eaee;
+            }
+            /* Final color */
+        }
+
+        .errorlist {
+            padding: 4px;
+            margin: 7px;
+            animation: backgroundChange 1.3s infinite alternate;
+            /*color: red;*/
+            /*font-size: 0.9em;*/
+            border-radius: 8px 8px 0px 0px;
+        }
+
+        .email_addreses {
+            color: orange;
+            width: 20%;
+            text-align: center;
+            font-size: 15px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="hk-wrapper">
+
+    <!-- Main Content -->
+    <div class="hk-pg-wrapper hk-auth-wrapper">
+        <header class="d-flex justify-content-end align-items-center">
+            <div class="btn-group btn-group-sm">
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12 pa-0">
+                    <div class="auth-form-wrap pt-xl-0 pt-70">
+                        <div class="auth-form w-xl-30 w-sm-50 w-100">
+                            <a class="auth-brand text-center d-block mb-20" href="{% url 'core:home' %}">
+                                LEANYFI
+                            </a>
+                            {% if messages %}
+                            <div class="container">
+                                {% for message in messages %}
+                                <br/>
+                                <div class="alert alert-{{ message.tags }}" style="text-align: center">
+                                    {{ message }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
+
+                            {% if user.email %}
+                            <p>
+                                The following email addresses are associated with your account :
+                            </p>
+
+                            {% for email in user.email %}
+
+
+                            <span class="email_addreses"> {{ email }} </span>
+
+                            {%endfor%}
+                            {%else%}
+                            <p>
+                                <strong>Warning:</strong> You currently do not have any email address set up. You
+                                should really add an email address
+                                so you can receive notifications, reset your password, etc.
+                            </p>
+                            <br>
+                            {% endif %}
+                            {% if can_add_email %}
+
+                            <form class="registration_form d-flex flex-column align-items-center" action=""
+                                  method="POST" data-type="registration">
+                                {%csrf_token %}
+
+                                {% if form.errors %}
+                                <br/>
+                                <div class="errorlist">
+                                    <ul>
+                                        {% for field, errors in form.errors.items %}
+                                        {% for error in errors %}
+                                        <li>{{ field }} : {{ error }}</li>
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                <h2>
+                                    add email
+                                </h2>
+                                <br/>
+
+
+                                <p>
+                                    <label for="id_email">Email : </label>
+                                    <input class="field required" type="email" name="email" placeholder="Email address"
+                                           maxlength="320"
+                                           required="" id="id_email"
+                                           autocomplete="email">
+
+
+                                </p>
+
+
+                                <button class="btn btn-primary btn-block mb-20" name="action_add" type="submit">Submit
+                                </button>
+                                <p class="text-right"><a href="{% url 'core:profile'%}">Back to Profile</a></p>
+                                <p class="text-right"><a href="{% url 'core:home'%}">Back to Home </a></p>
+
+                            </form>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Main Content -->
+
+</div>
+</body>
+
+</html>
+
+
+

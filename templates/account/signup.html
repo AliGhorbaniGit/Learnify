@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+{%load static %}
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="shortcut icon" href="{% static 'core/svg/logo.svg' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core/svg/logo.svg' %}">
+    <title> LEANYFI | SignUp</title>
+    {% load socialaccount %}
+    {% providers_media_js %}
+
+    <link rel="stylesheet preload" as="style" href="{% static 'core' %}"/>
+    <link rel="stylesheet preload" as="style" href="{% static 'core' %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    {% block script %}
+    <link rel="stylesheet" href="{% static 'core' %}"/>
+    <link rel="stylesheet" href="{% static 'core' %}"/>
+    {% endblock script %}
+    <style>
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /*animation: backgroundChange 2s infinite alternate; !* Animation added here *!*/
+        }
+
+        @keyframes backgroundChange {
+            0% {
+                background-color: #e09c1f;
+            }
+            /* Initial color */
+            100% {
+                background-color: #0b6cd9;
+            }
+            /* Final color */
+        }
+
+        @keyframes errorbackgroundChange {
+            0% {
+                background-color: #faed00;
+            }
+            /* Initial color */
+            100% {
+                background-color: #f2f2f3;
+            }
+            /* Final color */
+        }
+
+        .login {
+            /*animation: backgroundChange 7s infinite alternate; !* Animation added here *!*/
+            max-width: 400px;
+            width: 90%;
+            margin: 3% auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            border-radius: 7px;
+
+        }
+
+        .login h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .login p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .login h5 {
+
+            margin-bottom: 20px;
+            font-weight: normal;
+            color: white;
+        }
+
+        .login .field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .login .wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .login .checkbox {
+            display: flex;
+            align-items: center;
+        }
+
+        .login .checkbox input {
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .login .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .login .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .login .link {
+            font-size: 12px;
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .login .link:hover {
+            text-decoration: underline;
+        }
+
+
+        .errorlist {
+            padding: 8px;
+            margin: 7px;
+            animation: errorbackgroundChange 1s infinite alternate;
+            /*color: red;*/
+            font-size: 0.9em;
+            border-radius: 8px;
+        }
+
+        #id_password_helptext {
+            color: white;
+        }
+
+        .wrapper {
+            background-color: white;
+            margin: 5px auto;
+            text-align: center;
+            font-size: 12px;
+            border-radius: 5px;
+            padding: 4px;
+        }
+
+        #dataProcessing {
+            margin-left: 5px;
+        }
+
+        .form-signup {
+            width: 100%;
+        }
+
+        a {
+            color: #1a76ee;
+            font-size: 18px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="login">
+
+
+    <h2 class="title">Sign up</h2>
+    <p class="text">
+        Select your department and connect with student clubs tailored to your interests.
+    </p>
+    <form class="registration_form d-flex flex-column align-items-center" action="{% url 'account_signup' %}"
+          method="POST" data-type="registration" id="registrationForm">
+        {% csrf_token %}
+        {% if messages %}
+        <div class="container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="text-align: center">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if form.errors %}
+        <div class="errorlist">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                <li>{{field}} : {{ error }}!</li>
+                {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <br>
+        <div class="form-signup">
+            <label for="id_username"></label>
+            <input class="field required" type="text" name="username" placeholder="Username"
+                   minlength="1" maxlength="150" required="" id="id_username">
+        </div>
+
+        <div class="form-signup">
+            <input class="field required" type="email" name="email" data-type="email" placeholder="Email"
+                   autocomplete="email" maxlength="150" id="id_email" required="">
+            <div class="invalid-feedback text-danger mb-2" id="emailFeedback" style="display: none;"></div>
+
+        </div>
+
+        <div class="form-signup">
+            <input class="field required" type="password" name="password1" placeholder="Password"
+                   autocomplete="new-password" required="" aria-describedby="id_password_helptext" id="id_password"
+                   aria-autocomplete="list">
+        </div>
+
+        <br>
+        <div class="checkbox">
+            <input type="checkbox" name="remember" id="id_remember">
+            <label for="id_remember">Remember Me</label>
+        </div>
+        <br>
+        <div>
+            <div class="checkbox">
+                <input type="checkbox" name="dataProcessing" id="dataProcessing" checked required>
+                <label for="dataProcessing">I agree to the<a class="link" href="{% url 'core:terms' %}">Terms and
+                    Conditions</a></label>
+            </div>
+        </div>
+        <br>
+        <button class="btn btn--gradient w-100" type="submit">
+            <span class="text">Registration</span>
+        </button>
+    </form>
+
+    <br/>
+    {% comment %}
+    <a href="{% provider_login_url 'google' %}">Login Google</a>
+    {% endcomment %}
+    <form method="post" action="/accounts/google/login/">
+
+
+        {% csrf_token %}
+        <div
+                class="flex items-center bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-3">
+            <img src="{% static 'core/img/google.jpg' %}" alt="Google Logo" class="w-8 h-8 ml-2">
+
+            <button type="submit" class="ml-10">
+
+                Continue with Google
+
+            </button>
+        </div>
+
+
+    </form>
+
+
+    <br/>
+    <p> Already on LEANYFI?
+        <a class="" href="{% url 'account_login'%}"> log in </a></p>
+    <a href="{% url 'core:home'%}"> Home </a>
+
+</div>
+
+{% comment %}
+<script src="//accounts.google.com/gsi/client" async></script>
+{% endcomment %}
+<div id="g_id_onload"
+     data-client_id="123-secret.apps.googleusercontent.com"
+     data-login_uri="{% url 'google_login_by_token' %}">
+</div>
+
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+        const emailInput = document.getElementById('id_email').value;
+        const emailFeedback = document.getElementById('emailFeedback');
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|gov|edu|mil|co|info|io|[a-zA-Z]{2,})$/;
+        if (!emailPattern.test(emailInput)) {
+            event.preventDefault();
+            emailFeedback.style.display = 'block';
+            emailFeedback.textContent = 'Please enter a valid email address.';
+            alert('Email validation failed.');
+        } else {
+            emailFeedback.style.display = 'none';
+        }
+    });
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
