@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>LEARNIFY | Sample Vidio </title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+<div >
+
+
+
+    <h2 >Submit a Sample Video of Your Course</h2>
+       {% if messages %}
+        <div >
+            {% for message in messages %}
+            <div  style="text-align: center">{{ message }}</div>
+            {% endfor %}
+        </div>
+
+        {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div >
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div >
+            <label for="title">Course Title</label>
+            <input type="text"  id="title" name="title" placeholder="Enter Course title" value="{{ form.title.value|default:'' }}" required>
+            {% for error in form.title.errors %}
+                <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="description">Description</label>
+            <textarea 
+                      id="description" name="description" rows="5"
+                      required>{{ form.description.value|default:'' }}</textarea>
+            {% for error in form.description.errors %}
+                <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="video">Upload a sample video :</label>
+            <input type="file"  id="video"
+                   name="video" accept="video/*" required>
+            {% for error in form.video.errors %}
+                <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <button type="submit" >Submit Request</button>
+        <a href="{% url 'core:profile' %}" >Cancel</a>
+    </form>
+</div>
+
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>LEARNIFY | Course Videos </title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+
+{% if user.is_authenticated %}
+{% if profile.is_teacher %}
+<div >
+
+    <h2 >Submit a video for your Course </h2>
+    <br>
+    {% if messages %}
+    <div >
+        {% for message in messages %}
+        <div  style="text-align: center">
+            {{message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div >
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <div >
+            <label for="course">course : </label>
+            {{form.course}}
+            {% for error in form.course.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="title">Vidio Title</label>
+            <input type="text"  id="title"
+                   name="title" placeholder="Enter request title" value="{{ form.title.value|default:'' }}" required>
+            {% for error in form.title.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="description">Description</label>
+            <textarea  id="description"
+                      name="description" rows="5" maxlength="800"
+                      required>{{ form.description.value|default:'' }}</textarea>
+            {% for error in form.description.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <div >
+            <label for="video_file">Upload Video</label>
+            <input type="file" 
+                   id="video_file"
+                   name="video_file" accept="video/*" required>
+            {% for error in form.video_file.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <button type="submit" >Submit Request</button>
+        <a href="{% url 'core:profile' %}" >End / Profile</a>
+
+
+    </form>
+</div>
+
+{% else %}
+<h1 >Unauthorized</h1>
+<p >You do not have permission to add courses.</p>
+<h4 >
+    Please submit an additional course request first using the link provided in your profile's participation section.
+</h4>
+{% endif %}
+{% endif %}
+</body>
+</html>

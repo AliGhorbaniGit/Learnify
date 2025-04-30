@@ -1,0 +1,230 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block script %}
+<link rel="stylesheet" href="{% static 'core/css/journal.min.css' %}"/>
+{% endblock script %}
+
+{% block title %} LEARNIFY | Courses {% endblock title %}
+{% block content %}
+<header >
+    <div >
+        <div >
+            <ul >
+                <li >
+                    <a href="{% url 'core:home' %}" >Home</a>
+                </li>
+
+                <li >Courses</li>
+            </ul>
+        </div>
+    </div>
+
+    <div >
+        <div ></div>
+        <div >
+            <div >
+                <h1 >Courses</h1>
+
+
+                <form  action="{% url 'core:search' %}" method="get" data-type="search">
+                    <i ></i>
+                     <label for="search-input" ></label>
+                    <input id="search-input"  name="query" type="search"
+                           placeholder="Type your query and press Enter."
+                           required/>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- journal content start -->
+<main >
+    <div >
+        <div >
+            <div >
+                <a  href="#" data-bs-toggle="collapse"
+                   data-bs-target="#sidebar">
+                    <i ></i>
+                    All
+                </a>
+            </div>
+            <div >
+                <select name="sidebarLang" id="sidebarLangPanel">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pl">Polski</option>
+                </select>
+            </div>
+        </div>
+        <aside  id="sidebar">
+            <div >
+                <h4 >
+                    All Categories:
+                </h4>
+
+                <ul >
+                    {% for category in categories %}
+                    <li >
+                        <a  href="{% url 'core:filter' category.slug%}">
+                                <span >
+                                    <i ></i>
+                                </span>
+                            <span >{{ category}}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div >
+                <h4 >Top Rated Courses : </h4>
+                <ul >
+                    {% for course in top_rated_courses %}
+
+                    <li >
+                        <div >
+                          <picture>
+                                <source data-srcset="" srcset=""/>
+                                {% if course.image %}
+                                <img  data-src="{{ course.image.url }}" src="{{ course.image.url }}"
+                                     alt="media"/>
+                                {% else %}
+                                <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                     src="{% static 'core/img/placeholder.jpg' %}" alt="Placeholder Image"/>
+                                {% endif %}
+                            </picture>
+                        </div>
+                        <div >
+                            <a  href="{% url 'course:course-detail' slug=course.slug %}">
+                                {{ course.description | truncatewords:40 }}
+                            </a>
+                            <ul >
+                                <li >
+                                    <i ></i> {{ course.created_at }}
+                                </li>
+
+                                <li >
+                                    <i > Rating: {{ course.avg_rating|floatformat:1 }}
+                                    </i>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+        <div >
+            <ul >
+
+                {% if courses %}
+                {% for course in courses %}
+
+                <li  data-order="{{ course.id }}">
+                    <div >
+                        <picture>
+                            {% if course.image %}
+                            <a  href="{% url 'course:course-detail' course.slug %}">
+                                <source data-srcset="{{ course.image.url }}" srcset="{{ course.image.url }}"/>
+
+                                <img  data-src="{{ course.image.url }}" src="{{ course.image.url }}"
+                                     alt="media"/>
+                            </a>
+                            {% endif %}
+                        </picture>
+                    </div>
+                    <div >
+                        <ul >
+                            <li >
+                                <i ></i> {{ course.created_at | date:"b d, Y"}}
+                            </li>
+                            <li >
+                                <i ></i> {{ course.teacher }}
+                            </li>
+                            {% comment %}
+                            <li >
+                                <i ></i> Programming
+                            </li>
+                            {% endcomment %}
+                        </ul>
+                        <a  href="{% url 'course:course-detail' course.slug %}"
+                           rel="noopener noreferrer">
+                            {{ course.title }}
+                        </a>
+                        <p >
+                            {{ course.description }}
+                        </p>
+                        <a  href="{% url 'course:course-detail' course.slug %}">
+                            <span >Register</span>
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+
+                {% endif %}
+            </ul>
+
+            <div >
+                <ul >
+                    {% if page_obj.has_previous%}
+                    <li >
+                        <a  href="?page={{ page_obj.previous_page_number }}">
+                            <span >pre</span>
+                        </a>
+                    </li>
+                    {%endif %}
+
+                    {% for page_number in page_obj.paginator.page_range %}
+                    {% if page_number == page_obj.number %}
+                    <li >
+                        <a >
+                            <span >{{ page_obj.number }}</span>
+                        </a>
+                    </li>
+                    {%else%}
+                    <li >
+                        <a  href="?page={{ page_number }}">
+                            <span >{{page_number}}</span>
+                        </a>
+                    </li>
+                    {%endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next%}
+                    <li >
+                        <a  href="?page={{page_obj.next_page_number}}">
+                            <span >next</span>
+                        </a>
+                    </li>
+                    {%endif %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div >
+        <div ></div>
+        <div >
+            <div >
+                <h4  data-aos="fade-up">
+                    Unlimited access to educational materials and lectures for subscribers
+                </h4>
+                <div  data-aos="fade-up" data-aos-delay="50">
+                    <a  href="{% url 'blog:blogs-list' %}">See Blogs</a>
+                </div>
+            </div>
+            <div >
+                <picture>
+                    <source data-srcset="{% static 'core/img/placeholder.jpg' %}"
+                            srcset="{% static 'core/img/placeholder.jpg' %}"/>
+                    <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                         src="{% static 'core/img/placeholder.jpg' %}" alt="media"/>
+                </picture>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- journal content end -->
+{% endblock content %}
