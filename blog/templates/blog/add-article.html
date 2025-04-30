@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title> Add Article </title>
+
+</head>
+<body >
+
+{% if user.is_authenticated %}
+
+     {% for message in messages %}
+            <div  >- {{ message }}</div>
+            {% endfor %}
+    {% if form.errors %}
+
+    {% endif %}
+
+    <h2>Submit Your Article</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div >
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <div >
+            <label for="title">Article Title</label>
+            <input type="text"  id="title"
+                   name="title" placeholder="Enter request title" value="{{ form.title.value|default:'' }}" required>
+            {% for error in form.title.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="slug">Article slug: (Please make sure it is unique and may include letters, numbers, underscores, or hyphens.)</label>
+            <input type="text"  id="slug"
+                   name="slug" placeholder="Enter request title"
+
+                   value="{{ form.slug.value|default:'' }}" required>
+
+            {% for error in form.slug.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div >
+            <label for="intro_txt">intro text</label>
+            <textarea 
+                      placeholder="Enter intro text" id="intro_txt"
+                      name="intro_txt" rows="5" maxlength="600"
+                      required>{{ form.description.value|default:'' }}</textarea>
+            {% for error in form.description.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <div >
+            <label for="image">Upload image </label>
+            <input type="file"  id="image"
+                   name="image" accept="image/*" required>
+            {% for error in form.image.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <div >
+            <label for="description">Description</label>
+            <textarea  id="description"
+                      name="description" rows="5"
+                      required>{{ form.description.value|default:'' }}</textarea>
+            {% for error in form.description.errors %}
+            <div >{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <button type="submit" >Submit Article</button>
+        <a href="{% url 'core:profile' %}" >Cancel</a>
+
+
+    </form>
+</div>
+
+
+<script src=""></script>
+
+{% endif %}
+</body>
+</html>
+

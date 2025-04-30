@@ -1,0 +1,391 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block script %}
+<link rel="stylesheet" href="{% static '' %}"/>
+{% endblock script %}
+
+{% block title %} LEANYFI | {{ object.seoT|default:object.title }} {% endblock title %}
+
+{% block metatags %}
+    <meta name="description" content="{{ object.seoD|default:object.intro_txt }}">
+    <meta name="keywords" content="{{ object.seoK }}">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{{ object.get_meta_tags.og.title }}">
+    <meta property="og:description" content="{{ object.get_meta_tags.og.description }}">
+    <meta property="og:image" content="{{ object.get_meta_tags.og.image }}">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:title" content="{{ object.get_meta_tags.twitter.title }}">
+    <meta name="twitter:description" content="{{ object.get_meta_tags.twitter.description }}">
+
+{% endblock metatags %}
+
+
+{% block content %}
+
+
+<header >
+    <div >
+        <div >
+            <ul >
+                <li >
+                    <a href="{% url 'core:home' %}" >Home</a>
+                </li>
+
+                <li >
+                    <a href="{% url 'blog:blogs-list' %}" >Blogs</a>
+                </li>
+
+                <li >{{ object.title }}</li>
+            </ul>
+        </div>
+    </div>
+</header>
+<main>
+    <div >
+        <div >
+            <div >
+                <div >
+                    <a  href="#" data-bs-toggle="collapse"
+                       data-bs-target="#sidebar">
+                        <i ></i>
+                        All
+                    </a>
+                </div>
+            </div>
+            <aside  id="sidebar">
+                <div >
+                    <h4 >All Categories:</h4>
+                    <ul >
+                        {% for category in categories %}
+                        <li >
+                            <a  href="{% url 'core:filter' category.slug %}">
+                                <span >
+                                    <i ></i>
+                                </span>
+                                <span >{{ category}}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div >
+                    <h4 >Top Rated Articles : </h4>
+                    <ul >
+                        {% for article in top_rated_articles %}
+
+                        <li >
+                            <div >
+                                <picture>
+                                    {% if article.image %}
+                                    <img  data-src="{{ article.image.url }}" src="{{ article.image.url }}"
+                                         alt="media"/>
+                                    {% else %}
+                                    <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                         src="{% static 'core/img/placeholder.jpg' %}" alt="Placeholder Image"/>
+                                    {% endif %}
+                                </picture>
+                            </div>
+                            <div >
+                                <a  href="{% url 'blog:blog-detail' slug=article.slug %}">
+                                    {{ article.title }}
+                                </a>
+                                <ul >
+                                    <li >
+                                        <i ></i> {{ article.created_at | date:"b d, Y" }}
+                                    </li>
+
+                                    <li >
+                                        <i > Average Rating:
+                                            {{ article.avg_rating|floatformat:1 | default:""}}
+
+                                        </i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </aside>
+            <div >
+                <article >
+                    <div >
+                        <h2 >{{ article.title }}</h2>
+                        <div >
+                            <picture>
+                                <source data-srcset="" srcset=""/>
+                                {% if article.image %}
+                                <img  data-src="{{ article.image.url }}" src=""
+                                     alt="media"/>
+                                {% else %}
+                                <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                     src="" alt="Placeholder Image"/>
+                                {% endif %}
+                            </picture>
+                        </div>
+                        <ul >
+                            <li >
+                                <i ></i> {{ object.created_at | date:"b , Y" }}
+                            </li>
+                            <a  href="{% url 'core:profile-overview' object.writer %} ">
+                                <li ><i ></i>
+                                    {{ object.writer }}
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div >
+                         
+                        {{ article.description | safe}}
+                    </div>
+
+                </article>
+                <section >
+                    {% if similar_articles %}
+                    <div >
+                        <h4 >You might also like</h4>
+                        <div >
+                            {% for article in similar_articles %}
+                            <div  style="padding: 5px;">
+                                <div >
+                                    <picture>
+
+                                        {% if article.image %}
+                                        <img  data-src="{{ article.image.url }}"
+                                             src="" alt="media"/>
+                                        {% else %}
+                                        <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                             src="{% static 'core/img/placeholder.jpg' %}" alt="Placeholder Image"/>
+                                        {% endif %}
+                                    </picture>
+                                </div>
+                                <div >
+                                    <h4>{{ article.title }} </h4>
+                                    <br>
+                                    <a  href="{% url 'blog:blog-detail' slug=article.slug %}">
+                                        {{ article.intro_txt | truncatewords:12 |safe }}
+                                    </a>
+                                    <ul >
+                                        <li >
+                                            <i ></i>
+                                            {{ article.created_at | date:"b , Y" }}
+                                        </li>
+                                        <li >
+                                            <i ></i> {{ article.writer }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div >
+                        <a href="{% url 'core:profile-overview' object.writer %} ">
+                            <div >
+                                <picture>
+
+                                    {% if object.writer.user.profile.image %}
+                                    <img  data-src="{{ object.writer.user.profile.image.url }}"
+                                         src="" alt="media"/>
+
+                                    {% else %}
+                                    <img  data-src="{% static 'core/img/user-default-image.png' %}"
+                                         src="{% static 'core/img/user-default-image.png' %}" alt="Placeholder Image"/>
+                                    {% endif %}
+                                </picture>
+
+                            </div>
+                        </a>
+                        <div >
+                            <span > Writer : </span>
+                            <a href="{% url 'core:profile-overview' object.writer %} ">
+                                <h4 >{{ object.writer.user}}</h4>
+                            </a>
+                            {% if object.writer.user.profile.bio|safe %}
+                            <p >
+                                {{ object.writer.user.profile.bio }}
+                            </p>
+                            {%endif %}
+                            <ul >
+                                <li >
+                                    <a  href="{{ object.writer.facebook_address | default:'#' }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i ></i>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a  href="{{ object.writer.youtube_address | default:'#' }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i ></i>
+                                    </a>
+                                </li>
+                                <li >
+                                    <a  href="{{ object.writer.linkedin_address | default:'#' }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        <i ></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section >
+
+                    <div>
+                        <h2>Average Rating :</h2>
+                        <br>
+                        <div>
+                            {% for i in "12345" %}
+                            {% if i|add:0 <= average_rating %}
+                            <span ><i ></i></span>
+                            {% else %}
+                            <span ><i ></i></span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <p>Average Rating: {{ average_rating| floatformat:1 |default:"No ratings yet" }}</p>
+                    </div>
+
+                </section>
+
+                <br>
+
+
+                {% if not user_rating %}
+                <section >
+                    <h2>Rate this Course : </h2>
+                    {% if rating_form.errors %}
+                    <div >
+                        <ul>
+                            {% for field, errors in rating_form.errors.items %}
+                            {% for error in errors %}
+                            <li> {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+
+                    <form method="POST" id="ratingForm">
+
+                        {% csrf_token %}
+                        <div  id="starRating">
+                            <span data-value="5" >★</span>
+                            <span data-value="4" >★</span>
+                            <span data-value="3" >★</span>
+                            <span data-value="2" >★</span>
+                            <span data-value="1" >★</span>
+                        </div>
+                        <input type="hidden" name="score" id="ratingInput" value="">
+                        <input type="hidden" name="rating_form">
+                        <br>
+                        <button  type="submit">Submit</button>
+                    </form>
+                </section>
+
+                {%else %}
+                <br>
+                <button  type="submit">
+                    <a href="{% url 'account_login' %}" > Please log in first </a>
+                </button>
+                {%endif%}
+                {%else %}
+                <br/>
+                <h4> You Rate This Course "{{user_rating.score}}" Stars </h4>
+                {%endif%}
+
+                <br>
+                <br>
+                <br>
+
+                <section >
+                    <h3 > Leave a Comment: </h3>
+                    {% if user.is_authenticated %}
+                    {% if comment_form.errors %}
+                    <div >
+                        <ul>
+                            {% for field, errors in comment_form.errors.items %}
+                            {% for error in errors %}
+                            <div >{{ error }}</div>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    {% endif %}
+                    <form  action="{% url 'blog:blog-detail' object.slug %}"
+                          method="post" data-type="reply">
+
+                        {% csrf_token %}
+                        <input type="hidden" name="comment_form"/>
+                        {{comment_form.text}}
+                        <button  type="submit">
+                            <span >Submit Comment</span>
+                        </button>
+                    </form>
+                    {% else %}
+                    <button  type="submit">
+                        <a href="{% url 'account_login' %}" > Please login </a>
+                    </button>
+                    {%endif%}
+                </section>
+                <section >
+                    <h4 >Recent comments:</h4>
+                    <ul >
+                        {% for comment in comments %}
+                        <div >
+                            <a href="{% url 'core:profile-overview' comment.user %} ">
+                                <div >
+                                    <picture>
+                                        <source data-srcset="" srcset=""/>
+                                        {% if comment.user.profile.image %}
+                                        <img  data-src="{{ comment.user.profile.image.url }}"
+                                             src="{{ comment.user.profile.image.url }}"
+                                             alt="Placeholder Image"/>
+                                        {% else %}
+                                        <img  data-src="{% static 'core/img/user-default-image.png' %}"
+                                             src="{% static 'core/img/user-default-image.png' %}"
+                                             alt="Placeholder Image"/>
+                                        {% endif %}
+                                    </picture>
+                                </div>
+                            </a>
+                            <div >
+                                <a href="{% url 'core:profile-overview' comment.user %} ">
+                                    <h4 >{{ comment.user.username}}</h4>
+                                </a>
+                                <p >
+                                    {{ comment.text }}
+                                </p>
+                                <ul >
+                                    <li >
+                                        <i >
+
+                                        </i> {{ comment.submit_date | date:"b , Y"}}
+
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock content %}
