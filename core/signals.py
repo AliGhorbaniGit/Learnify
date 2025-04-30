@@ -37,7 +37,7 @@ def make_user_as_teacher_and_sent_confirm_ticket(sender, instance, **kwargs):
                           f'You can now add the course using the "Add Course" option in your profile menu. '
                           f'If you have any questions or need further assistance, '
                           f'please feel free to reach out.Happy learning!'
-                          f'Edrock',
+                          ,
             admin_user=admin_user
         )
 
