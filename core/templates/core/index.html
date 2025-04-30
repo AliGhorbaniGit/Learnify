@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>{% block title %} LEARNIFY | Home {% endblock title %}</title>
+    <link rel="shortcut icon" href="{% static 'core/' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core/' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    {% block metatags %}
+        <meta name="description" content="Unite Minds
+        Exchange Exchange and Resolve Academic Challenges through LEANYFI learning platform , to learn toghther ">
+        <meta name="keywords" content="Exchange learn , debut , discussion platform}">
+
+
+        <meta name="theme-color" content="#ff5733"> 
+        <meta name="msapplication-TileColor" content="#ff5733"> <!-- Windows 8.1 and IE -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    {% endblock metatags %}
+
+
+    <link rel="stylesheet preload" as="style" href="{% static 'core/css' %}"/>
+    <link rel="stylesheet preload" as="style" href="{% static 'core/css' %}"/>
+
+    {% block script %}
+    <link rel="stylesheet" href="{% static 'core/css' %}"/>
+    <link rel="stylesheet" href="{% static 'core/css' %}"/>
+    {% endblock script %}
+
+
+
+</head>
+<body>
+
+{% include 'core/part/promobar.html' %}
+
+
+{% include 'core/part/header.html' %}
+
+{% block content %}
+
+
+<main>
+    <div ></div>
+    <section >
+        <div >
+            <div >
+                <h1  data-aos="fade-up" style="color:#fff"> LEARNIFY</h1>
+    
+                <div >
+                    {%if user.is_authenticated %}
+
+                    {%else %}
+                    <a  href="{% url 'account_login'%}" data-aos="fade-left">
+                        <span >Register for Free</span>
+                    </a>
+
+                    {%endif %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section>
+        <div>
+            <ul >
+
+                {% for tag in random_tags %}
+
+                <li  data-aos="fade-left">
+                    <a  href='#'># {{tag.title}}</a>
+                </li>
+                {%endfor %}
+            </ul>
+            <ul >
+                {% for course in top_rated_courses %}
+                <li  data-aos="fade-up">
+                    <div >
+                        <div >
+                                    <span >
+                                             <picture>
+                                <source data-srcset="" srcset=""/>
+                                {% if course.image %}
+                                <img  data-src="{{ course.image.url }}" src="{{ course.image.url }}"
+                                     alt="media"/>
+                                {% else %}
+                                <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                     src="{% static 'core/img/placeholder.jpg' %}" alt="Placeholder Image"/>
+                                {% endif %}
+                            </picture>
+                                    </span>
+                            <div >
+                                <h5 >{{ course.title }}</h5>
+                                <ul >
+
+                                    {% for i in "12345" %}
+                                    {% if i|add:0 <= course.avg_rating %}
+                                    <span ><i ></i></span>
+                                    {% else %}
+                                    <span ><i ></i></span>
+                                    {% endif %}
+                                    {% endfor %}
+
+                                </ul>
+                                <span >by {{ course.teacher }}</span>
+                                <span >{{course.video_count}} lectures ( {{course.hours}} Hours)</span>
+                            </div>
+                        </div>
+
+                        <div >
+                            <span >Free</span>
+                        </div>
+                        <div >
+                            <ul >
+                                <li >
+                                    <i ></i>
+                                    <p >
+                                        {{ course.intro_txt }}
+                                    </p>
+                                </li>
+
+                            </ul>
+                            <a 
+                               href="{% url 'course:course-detail' course.slug %}">
+                                More ...<i ></i>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+            <a  href="{% url 'course:courses-list'  %}">
+                <span >All Courses</span>
+            </a>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
+
+{% include 'core/part/footer.html' %}
+
+{% include 'core/part/script.html' %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingInput');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = this.getAttribute('data-value');
+                ratingInput.value = rating; // Set rating input value
+
+                // Update the star appearance
+                stars.forEach(s => {
+                    s.classList.remove('selected');
+                });
+                this.classList.add('selected');
+                this.previousSibling.classList.add('selected'); // Highlight previous stars
+            });
+        });
+    });
+</script>
+</body>
+</html>

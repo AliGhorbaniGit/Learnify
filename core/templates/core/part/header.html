@@ -1,0 +1,104 @@
+{% load static %}
+
+<header  data-page="home">
+
+    <div >
+        <div >
+            <a  href="{% url 'core:home' %}">
+                <span >
+                </span>
+                <span >
+                    <span >LEARNIFY</span>
+                    <span >Learning Platform</span>
+                </span>
+            </a>
+        </div>
+
+        <button
+                
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#headerMenu"
+                aria-controls="headerMenu"
+        >
+            <span ></span>
+            <span ></span>
+            <span ></span>
+        </button>
+        <nav  id="headerMenu">
+            <ul >
+                <li >
+                    <a  href="{% url 'core:home' %}" {% if home_page %} data-page="home"
+                       {% endif %}>Home</a>
+                </li>
+                <li >
+                    <a  href="#"
+                    >Students Clubs</a>
+                </li>
+                <li >
+                    <a  href="{% url 'course:courses-list' %}" {% if courses %} data-page="home"
+                       {% endif %}>Cources</a>
+                </li>
+
+                <li >
+                    <a  href="{% url 'blog:blogs-list' %}" {% if blogs %} data-page="home"
+                       {% endif %}>Blogs</a>
+                </li>
+
+                <li >
+                    <a  href="{% url 'core:about-us' %}" {% if about_page %} data-page="home"
+                       {% endif %}>About Us</a>
+                </li>
+                <li >
+                    <a  href="{% url 'core:contact-us' %}" {% if contact_page %} data-page="home"
+                       {% endif %}>Contact Us</a>
+                </li>
+                <li >
+                    {%if user.is_authenticated %}
+                        {%if user.is_staff %}
+                        <a  href="/admin">
+                            Admin Dashboard
+                        </a>
+
+                        {% else %}
+                        <a  href="{% url 'core:profile' %}">
+                            Profile
+                        </a>
+                        {%endif %}
+                    {%endif %}
+                </li>
+
+
+                {%if user.is_authenticated %}
+                <li >
+
+
+                    <a  href="{% url 'core:profile' %}">
+                        {{user.username}}
+                    </a>
+
+                </li>
+
+                {%else %}
+
+
+                <li >
+                    <a  href="{% url 'account_signup'%}">
+                        Sign Up
+                    </a>
+
+                </li>
+
+                <li >
+                    <a  href="{% url 'account_login'%}">
+                        Sign in
+                    </a>
+                </li>
+
+                {%endif %}
+            </ul>
+
+        </nav>
+    </div>
+
+</header>

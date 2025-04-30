@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="shortcut icon" href="{% static 'core' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core' %}">
+    <title>LEARNIFY | Profile</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Toggles CSS -->
+    <link href="{% static 'core' %}" rel="stylesheet"
+          type="text/css">
+
+
+    <!-- Custom CSS -->
+    <link href="{% static 'core' %}" rel="stylesheet" type="text/css">
+
+
+    <style>
+
+        @keyframes backgroundChange {
+            0% {
+                background-color: ghostwhite;
+
+            }
+            /* Initial color */
+            100% {
+                background-color: #2d1453;
+            }
+            /* Final color */
+        }
+
+        .alert-message {
+            animation: backgroundChange 1s infinite alternate;
+        }
+
+
+        .card-title {
+            font-weight: bold;
+        }
+
+
+        #user_language_update > div {
+            display: none;
+            transition: 0.7s;
+        }
+
+        #user_language_update:hover > div {
+            display: block;
+            transition: 0.7s;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- HK Wrapper -->
+<div >
+
+    <!-- Top Navbar -->
+    <nav >
+        <a id="navbar_toggle_btn"  href="javascript:void(0);"><span
+                ><i data-feather="menu"></i></span></a>
+        <a  href="{% url 'core:home' %}">
+            LEARNIFY
+        </a>
+
+
+        <ul >
+
+            <li >
+                <a id="settings_toggle_btn"  href="javascript:void(0);"><span
+                        ><i data-feather="settings"></i></span></a>
+            </li>
+
+            <li >
+
+                <form 
+                      action="{% url 'account_logout' %}"
+                      method="POST" data-type="registration">
+                    {%csrf_token %}
+
+                    <button  type="submit">Log out</button>
+
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Vertical Nav -->
+    <nav >
+        <a href="javascript:void(0);" id="hk_nav_close" ><span ><i
+                data-feather="x"></i></span></a>
+        <div >
+            <div >
+                <ul >
+
+                    <li >
+                        <a  href="javascript:void(0);" data-toggle="collapse" data-target="#auth_drp">
+                            <span ><i data-feather="zap"></i></span>
+                            <span >Authentication</span>
+                        </a>
+                        <ul id="auth_drp" >
+                            <li >
+                                <ul >
+                                    <li >
+                                        <a  href="{% url 'account_change_password' %}">Change
+                                            Password </a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'account_reset_password' %}">Forgot
+                                            Password</a>
+                                    </li>
+                                    <li >
+                                        {% comment %} <a  href="{% url 'account_email' %}">Change
+                                        Email</a>{% endcomment %}
+                                        <ul id="recover_drp" >
+                                            <li >
+                                                <ul >
+                                                    <li >
+                                                        <a  href="forgot-password.html">Forgot
+                                                            Password</a>
+                                                    </li>
+                                                    <li >
+                                                        <a  href="reset-password.html">Reset
+                                                            Password</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a  href="javascript:void(0);" data-toggle="collapse" data-target="#pages_drp">
+                            <span ><i data-feather="file-text"></i></span>
+                            <span >Pages</span>
+                        </a>
+                        <ul id="pages_drp" >
+                            <li >
+                                <ul >
+                                    {% if user.is_staff %}
+                                    <li >
+                                        <a  href="/admin">Admin Dashboard</a>
+                                    </li>
+                                    {% endif %}
+                                    <li >
+                                        <a  href="{% url 'core:home' %}">home</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'blog:blogs-list' %}"> blogs </a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'course:courses-list' %}">Courses</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:contact-us' %}">Contact Us</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:about-us' %}">About Us</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:faq' %}">Faq</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if custom_user.profile.is_teacher %}
+                    <li >
+                        <a  href="javascript:void(0);" data-toggle="collapse" data-target="#pages_drps">
+                            <span ><i data-feather="file-text"></i></span>
+                            <span >Add Course </span>
+                        </a>
+                        <ul id="pages_drps" >
+                            <li >
+                                <ul >
+
+                                    <li >
+                                        <a  href="{% url 'course:add-course' %}">Add your course
+                                            title</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'course:add-video' %}">Add Video to your
+                                            Course </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+                <hr >
+                <div >
+                    <span>User Interface</span>
+                    <span>UI</span>
+                </div>
+                <ul >
+
+                    <li >
+                        <a  href="javascript:void(0);" data-toggle="collapse" data-target="#forms_drp">
+                            <span ><i data-feather="server"></i></span>
+                            <span > Participation ? </span>
+                        </a>
+                        <ul id="forms_drp" >
+                            <li >
+                                <ul >
+
+                                    <li >
+                                        <a  href="{% url 'blog:add-article' %}">
+                                            Do you have an article to share
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'course:add-course-request' %}">
+                                            Do you have a Course to share
+                                        </a>
+                                    </li>
+
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <hr >
+                <div >
+                    <span></span>
+                    <span>GS</span>
+                </div>
+                <ul >
+
+                    <li >
+                        <a  href="{% url 'core:contact-us' %}">
+                            <span ><i data-feather="headphones"></i></span>
+                            <span >Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="hk_nav_backdrop" ></div>
+    <!-- /Vertical Nav -->
+
+    <!-- Setting Panel -->
+    <div >
+        <div >
+            <div >
+                <div >
+                    <a href="javascript:void(0);" id="settings_panel_close" ><span
+                            ><i data-feather="x"></i></span></a>
+                </div>
+                <hr>
+
+                <h6 >Navigation</h6>
+                <p >Menu comes in two modes: dark & light</p>
+                <div >
+                    <button type="button" id="nav_light_select"
+                            ><span ><i
+                            ></i> </span><span >Light Mode</span></button>
+                    <button type="button" id="nav_dark_select"
+                            ><span
+                            ><i ></i> </span><span
+                            >Dark Mode</span></button>
+                </div>
+                <hr>
+                <h6 >Top Nav</h6>
+                <p >Choose your liked color mode</p>
+                <div >
+                    <button type="button" id="navtop_light_select"
+                            ><span ><i
+                            ></i> </span><span >Light Mode</span></button>
+                    <button type="button" id="navtop_dark_select"
+                            ><span
+                            ><i ></i> </span><span
+                            >Dark Mode</span></button>
+                </div>
+                <hr>
+                <div >
+                    <h6>Scrollable Header</h6>
+                    <div ></div>
+                </div>
+                <button id="reset_settings" >Reset</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Setting Panel -->
+
+    <!-- Main Content -->
+    <div >
+        <!-- Container -->
+        <div >
+            <!-- Row -->
+            <div >
+                <div >
+                    {% if messages %}
+
+                    <div >
+                        {% for message in messages %}
+                        <div >
+                            {{message }}
+                        </div>
+
+                        {% endfor %}
+                    </div>
+
+                    {% endif %}
+
+                    <div >
+                        <div  role="tabpanel">
+                            <div >
+                                <div >
+                                    <div >
+                                        <div >
+                                            <div >
+                                                <div >
+                                                    {% if custom_user.profile.image %}
+                                                    <img src="{{custom_user.profile.image.url}}" alt="user image"
+                                                         
+                                                         style="height: 6em; width: 6em; border-radius: 10px; ">
+                                                    {% else %}
+                                                    <img src="{% static 'core/img/user-default-image.png' %}"
+                                                         alt="admin"
+                                                         style="height: 6em; width: 6em; border-radius: 10px; "
+                                                         >
+                                                    {%endif %}
+                                                </div>
+
+                                            </div>
+                                            <div >
+                                                <div >
+                                                    <h2 >
+                                                        {{ user}}
+                                                    </h2>
+                                                    <br>
+                                                    <span>
+                                                        Age :
+                                                        {% if custom_user.profile.age %}
+                                                            {{custom_user.profile.age}}
+                                                        {% endif %}
+                                                    </span>
+                                                    <br>
+                                                    <span>nationality : {{custom_user.profile.nationality}}</span>
+
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <div >
+                                                    <h5 >Role : </h5>
+                                                    <br>
+                                                    {% if user.is_staff %}
+                                                    <span > Admin</span>
+                                                    {% endif %}
+                                                    {% if custom_user.profile.is_teacher %}
+                                                    <span > Teacher</span>
+
+                                                    {%else %}
+                                                    <span > Student</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div >
+                                            <h5>Education : </h5>
+                                            <p >
+                                                {{custom_user.profile.education}}</p>
+                                            <br>
+                                            <h5>Bio : </h5>
+                                            <p >
+                                                {{custom_user.profile.bio}}</p>
+                                        </div>
+                                        <a href="{% url 'core:profile-update' %}"
+                                           > Update
+                                            Profile</a>
+                                        <br>
+                                        <br>
+
+                                        <div >
+                                            <div >
+                                                <h5>Your Languages : </h5>
+                                                {% for language in custom_user.profile.languages.all %}
+                                                <span > - {{language}}</span>
+                                                {%endfor %}
+                                            </div>
+
+                                            <form method="post" 
+                                                  id="user_language_update">
+                                                <i >
+                                                    Update Languages</i>
+
+                                                {% csrf_token %}
+                                                <div >
+                                                    <div >
+                                                        <div >
+                                                            <div >
+                                                            </div>
+                                                        </div>
+                                                        {{language_form}}
+                                                        <button type="submit"
+                                                                >
+                                                            <i > Update</i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+
+                                        <br>
+                                        <br><br>
+                                        <div >
+
+                                            <!-- course_addition_request-->
+                                            <div >
+
+                                                <h4 id="course_addition_request"> Your Course Addition Requests:</h4>
+                                                <br/>
+                                                {% if custom_user.teach_requests %}
+                                                {% for request in custom_user.teach_requests.all %}
+                                                <h5 > {{request.title}}</h5>
+                                                <details  name="vidio">
+
+                                                    <p >
+                                                    <h5> description : </h5>
+                                                    {{request.description |truncatewords:80|safe}}</p>
+                                                    <br>
+
+                                                    <div >
+                                                        <video style="margin: auto"
+                                                               width="100%" height="400" controls
+                                                               controlslist="nodownload">
+                                                            <source src="{{ request.video.url }}" type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
+                                                    </div>
+
+                                                    <span > {{request.application_time}}</span>
+
+                                                    {% if request.status == 'a' %}
+                                                    <span >status : Approved</span>
+                                                    <br>
+
+                                                    {% elif request.status == 'na' %}
+                                                    <span >status : Not Approved </span>
+                                                    {%else %}
+                                                    <span >status : Wating </span>
+                                                    {% endif %}
+
+
+                                                </details>
+
+                                                {% empty %}
+                                                <span >  You Have Not Submitted Any Course Addition Request Yet.</span>
+                                                {% endfor %}
+                                                <br>
+
+                                                {% else %}
+                                                <span >  You Have Not Submitted Any Course Addition Request Yet.</span>
+                                                {% endif %}
+
+
+                                            </div>
+
+
+                                            <!-- article-->
+                                            <div >
+
+                                                <h4 id="user_intro_txt"> Your Articles :</h4>
+                                                <br/>
+                                                {% if custom_user.writer.articles %}
+                                                {% for article in custom_user.writer.articles.all %}
+                                                <h5 > {{article.title}}</h5>
+
+                                                <details  name="article">
+
+                                                    <p >
+                                                    <h5> intro text : </h5>
+                                                    {{article.intro_txt | truncatewords:15|safe}}
+                                                    </p>
+                                                    <p >
+                                                    <h5> description : </h5>
+                                                    {{article.description |truncatewords:80|safe}}</p>
+                                                    <br>
+                                                    <span > {{article.submit_date}}</span>
+
+                                                    {% if article.status == 'a' %}
+                                                    <span >status : Approved</span>
+                                                    <br>
+                                                    <a 
+                                                       href="{% url 'blog:blog-detail' article.slug %} ">
+                                                        See in Blogs
+                                                    </a>
+
+
+                                                    {% elif article.status == 'na' %}
+                                                    <span >status : Not Approved </span>
+                                                    {%else %}
+                                                    <span >status : Wating </span>
+                                                    {% endif %}
+
+
+                                                </details>
+                                                <br>
+                                                {%endfor%}
+                                                {%else %}
+                                                <span> You Have Not Submitted Any Articles Yet</span>
+                                                {%endif%}
+
+                                            </div>
+
+                                            <!-- Courses-->
+                                            <div >
+
+                                                <h4 id="intro_txt"> Your Courses :</h4>
+                                                <br/>
+                                                {% if custom_user.teacher_profile.courses %}
+                                                {% for course in custom_user.teacher_profile.courses.all %}
+                                                <h5 > {{course.title}}</h5>
+                                                <details  name="vidio">
+
+                                                    <p >
+                                                    <h5> intro text : </h5>
+                                                    {{course.intro_txt | truncatewords:15|safe}}
+                                                    </p>
+                                                    <p >
+                                                    <h5> description : </h5>
+                                                    {{course.description |truncatewords:80|safe}}</p>
+                                                    <br>
+                                                    {% for video in course.videos.all %}
+                                                    <h4 >{{ video.title }}</h4>
+                                                    {% if video.description %}
+                                                    <p >{{ video.description|safe }}</p>
+                                                    {% endif %}
+                                                    <div >
+
+                                                        <video style="margin: auto" {% if video.thumbnai %}
+                                                               poster="{{ video.thumbnail.url }}" {% endif %}
+                                                               width="100%" height="400" controls
+                                                               controlslist="nodownload">
+                                                            <source src="{{ video.video_file.url }}" type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
+
+                                                    </div>
+                                                    <br>
+                                                    {% empty %}
+                                                    <br>
+                                                    <p> There aren’t any videos included in this course .</p>
+                                                    {% endfor %}
+                                                    <span > {{course.submit_date}}</span>
+
+                                                    {% if course.status == 'a' %}
+                                                    <span >status : Approved</span>
+                                                    <br>
+                                                    <a 
+                                                       href="{% url 'course:course-detail' course.slug %}"> See in
+                                                        courses</a>
+
+                                                    {% elif course.status == 'na' %}
+                                                    <span >status : Not Approved </span>
+                                                    {%else %}
+                                                    <span >status : Wating </span>
+                                                    {% endif %}
+
+
+                                                </details>
+                                                <br>
+
+                                                {%endfor%}
+                                                {%else %}
+                                                <span>  You Have Not Submitted Any Courses Yet.</span>
+                                                {% endif %}
+
+
+                                            </div>
+
+
+                                            <div >
+                                                {% if errors %}
+                                                {% for field, field_errors in errors.items %}
+                                                <div >
+                                                    <strong>{{ field }}:</strong> {{ field_errors|join:", " }}
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+                                                {% for field in form %}
+                                                <div >
+                                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                                    {{ field }}
+                                                    {% for error in field.errors %}
+                                                    <div >{{ error }}</div>
+                                                    {% endfor %}
+                                                </div>
+                                                {% endfor %}
+
+
+                                                <form 
+                                                      action="{% url 'core:contact-us' %}" method="post"
+                                                      data-type="contacts">
+                                                    {% csrf_token %}
+                                                    <h3 >How Can Help You</h3>
+
+                                                    <div >
+                                                        <label for="title" >Ticket Title</label>
+                                                        <input  type="text" id="title" name="title"
+                                                               maxlength="200"
+                                                               placeholder="Enter ticket title (at least 5 characters)"
+                                                               required>
+                                                    </div>
+                                                    <div >
+                                                        {% for error in form.description.errors %}
+                                                        <div >{{ error }}</div>
+                                                        {% endfor %}
+                                                        <label for="description" >Message</label>
+                                                        <textarea  id="description"
+                                                                  name="description" rows="4" required
+                                                                  placeholder="Your message here (at least 10 characters)"></textarea>
+                                                    </div>
+                                                    <button  type="submit">
+                                                        <span >Send a Message</span>
+                                                    </button>
+                                                </form>
+
+
+                                                <!-- Include Bootstrap CSS in your HTML head -->
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div >
+                                        <br>
+                                        <br>
+                                        <div >
+                                            <!-- tickets-->
+                                            <div >
+
+                                                <h2 id="user_tickets"> Your Tickets :</h2>
+
+                                                <br/>
+                                                {% if custom_user.tickets %}
+                                                {% for ticket in custom_user.tickets.all %}
+                                                <h5 > {{ticket.title}}</h5>
+                                                <details name="same" >
+                                                    <br>
+
+                                                    <div >
+                                                        {% if custom_user.profile.image %}
+                                                        <img src="{{custom_user.profile.image.url}}" alt="admin"
+                                                             >
+                                                        {% else %}
+                                                        <img src="{% static 'core/img/user-default-image.png' %}"
+                                                             alt="admin"
+                                                             >
+                                                        {% endif %}
+                                                        <span> </span>
+                                                    </div>
+
+                                                    <h6 >You :</h6>
+
+                                                    <p >{{ticket.description}}</p>
+                                                    <span >status : {{ticket.status}} </span>
+                                                    <span > {{ticket.submit_date}}</span>
+
+                                                    {% for response in ticket.responses.all %}
+                                                    <div >
+                                                        <div >
+                                                            {% if response.admin_user.profile.image %}
+                                                            <img src="{{ response.admin_user.profile.image.url}}"
+                                                                 alt="admin"
+                                                                 >
+                                                            {% else %}
+                                                            <img src="{% static 'core/img/user-default-image.png' %}"
+                                                                 alt="admin"
+                                                                 >
+                                                            {% endif %}
+                                                            <br/>
+
+                                                            <br/>
+                                                        </div>
+                                                        <h6 >{{ response.admin_user}}(Admin) :</h6>
+
+                                                        <p >{{response.response_text}}</p>
+                                                        <span > {{response.submit_date}} </span>
+                                                    </div>
+                                                    {%endfor%}
+                                                </details>
+                                                <br/>
+                                                {%endfor%}
+
+                                                {% else %}
+                                                <span > Emtpy!  </span>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Row -->
+        </div>
+        <!-- /Container -->
+
+        <!-- Footer -->
+        <div >
+            <footer >
+                <div >
+                    <div >
+                        <a href="https://t.me/AliGhorbani_Ali"  target="_blank">
+                            <p>Developed by Ali ©
+                                2024
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Main Content -->
+
+</div>
+
+</body>
+
+</html>

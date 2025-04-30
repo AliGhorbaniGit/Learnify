@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="shortcut icon" href="{% static 'core/svg/logo.svg' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core/svg/logo.svg' %}">
+    <title>LEARNIFY | Update Profile</title>
+    <meta name="description" content="A responsive bootstrap 4 admin dashboard template by hencework"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="icon" href="{% static 'core/'%}" type="image/x-icon">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'core/'%}" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div >
+
+    <!-- Main Content -->
+    <div >
+
+        <div >
+            <div >
+                <div >
+                    <div  style="height: auto">
+                        <div >
+                            <a  href="{% url 'core:home' %}">
+                                LEARNIFY
+                            </a>
+                            {% if messages %}
+                            <div >
+                                {% for message in messages %}
+                                <div  style="text-align: center">
+                                    {{ message}}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            {% endif %}
+                            <form  method="POST" enctype="multipart/form-data">
+                                {%csrf_token %}
+                                {% if profile_form.errors %}
+
+                                {% endif %}
+                                <h1 >Edit Your Information's</h1>
+                                <br>
+
+                                {% for errors in user_form.username.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+
+                                <input  type="text" name="username"
+                                       placeholder="Username :"
+                                       value="{{user.username}}"
+                                       autocomplete="text"
+                                       maxlength="150"
+                                       id="id_username">
+
+                                {% for errors in user_form.email.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <input  type="email" name="email"
+                                       placeholder="Email address : "
+                                       autocomplete="email"
+                                       maxlength="150"
+                                       id="id_email" value="{{user.email}}">
+
+                                {% for errors in user_form.email.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <input  type="text" name="first_name"
+                                       placeholder="First name : "
+                                       value="{{user.first_name}}"
+                                       autocomplete="email"
+                                       maxlength="150"
+                                       id="id_first_name">
+
+
+                                {% for errors in user_form.last_name.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <input  type="text" name="last_name"
+                                       placeholder="Last name : "
+                                       value="{{user.last_name}}"
+                                       maxlength="150"
+                                       id="id_last_name">
+
+                                {% for errors in profile_form.age.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+
+                                <input  type="number" name="age"
+                                       placeholder="age :"
+                                       value="{{profile.age}}"
+                                       maxlength="2"
+                                       id="id_age">
+
+                                {% for errors in profile_form.nationality.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <input  type="text" name="nationality"
+                                       placeholder="nationality : "
+                                       value="{{profile.nationality}}"
+                                       maxlength="195"
+                                       id="id_nationality">
+
+                                {% for errors in profile_form.education.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <input  type="text" name="education"
+                                       placeholder="education : "
+                                       value="{{profile.education}}"
+                                       maxlength="390"
+                                       id="id_education">
+                                <br>
+                                {% for errors in profile_form.bio.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <span>Your bio here :</span>
+                                <textarea  id="bio" , maxlength="900"
+                                          name="bio" rows="4"
+                                          placeholder="Your bio here :"> {{profile.bio}}</textarea>
+
+                                <br/>
+
+
+                                <div > Visibility :
+                                    <p >Other user can see my image: {{profile_form.age_visible}}</p>
+                                    <p >Other user can see my Education:
+                                        {{profile_form.education_visible}}</p>
+                                    <p >Other user can see my Articles:
+                                        {{profile_form.article_visible}}</p>
+                                    <p >Other user can see my Courses: {{profile_form.course_visible}}</p>
+                                </div>
+                                <br/>
+                                <span >Select Your languages : </span>
+                                   <p > (Hold down “Control” or “Command” on a Mac, to select more than one)</p>
+
+
+                                <div >
+                                    {% for errors in profile_form.languages.errors %}
+                                    <div >{{errors}}</div>
+                                    {% endfor %}
+
+                                    {{profile_form.languages}}
+
+                                </div>
+
+                                <br>
+                                {% for errors in profile_form.image.errors %}
+                                <div >{{errors}}</div>
+                                {% endfor %}
+                                <div  p-2> Image :
+                                    <div >
+                                        {% if profile.image %}
+
+                                        <a href="{{profile.image.url}}" > Current image </a>
+                                        <input  type="checkbox" name="image-clear" id="image-clear_id">
+                                        <label for="image-clear_id">Clear</label><br>
+                                        <label for="image_Change" >Change :</label>
+                                        <input id="image_Change"  type="file" name="image" accept="image/*" id="id_image">
+                                        {% else %}
+                                        Add Image:
+                                        <input type="file" name="image" accept="image/*" id="idd_image">
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <br/>
+                                <button  type="submit">Send</button>
+                                <a  href="{% url 'core:profile'%}">Back</a>
+
+                            </form>
+                            <br>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Main Content -->
+
+</div>
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en">
+{% load static %}
+
+<head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="shortcut icon" href="{% static 'core/' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core/' %}">
+    <title>LEARNIFY | Profile View</title>
+
+    <!-- Toggles CSS -->
+    <link href="{% static 'core/' %}" rel="stylesheet"
+          type="text/css">
+
+
+    <!-- Custom CSS -->
+    <link href="{% static 'core/' %}" rel="stylesheet" type="text/css">
+
+
+    <style>
+
+        @keyframes backgroundChange {
+            0% {
+                background-color: #66e01f;
+            }
+            /* Initial color */
+            100% {
+                background-color: #dee3ea;
+            }
+            /* Final color */
+        }
+
+        .alert-message {
+            animation: backgroundChange 1s infinite alternate;
+            background-color: red;
+        }
+
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        #user_language_update > div {
+            display: none;
+            transition: 0.7s;
+        }
+
+        #user_language_update:hover > div {
+            display: block;
+            transition: 0.7s;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- HK Wrapper -->
+<div >
+
+    <!-- Top Navbar -->
+    <nav >
+        <a id="navbar_toggle_btn"  href="javascript:void(0);"><span
+                ><i data-feather="menu"></i></span></a>
+        <a  href="{% url 'core:home' %}">
+            LEARNIFY
+        </a>
+
+
+        <ul >
+
+            <li >
+                <a id="settings_toggle_btn"  href="javascript:void(0);"><span
+                        ><i data-feather="settings"></i></span></a>
+
+            </li>
+
+        </ul>
+    </nav>
+
+    <!-- Vertical Nav -->
+    <nav >
+        <a href="javascript:void(0);" id="hk_nav_close" ><span ><i
+                data-feather="x"></i></span></a>
+        <div >
+            <div >
+                <ul >
+                    <li >
+                        <a  href="javascript:void(0);" data-toggle="collapse" data-target="#pages_drp">
+                            <span ><i data-feather="file-text"></i></span>
+                            <span >Pages</span>
+                        </a>
+                        <ul id="pages_drp" >
+                            <li >
+                                <ul >
+                                    <li >
+                                        <a  href="{% url 'core:home' %}">home</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'blog:blogs-list' %}"> blogs </a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'course:courses-list' %}">Courses</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:contact-us' %}">Contact Us</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:about-us' %}">About Us</a>
+                                    </li>
+                                    <li >
+                                        <a  href="{% url 'core:faq' %}">Faq</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <hr >
+
+                <ul >
+
+                    <li >
+                        <a  href="{% url 'core:contact-us' %}">
+                            <span ><i data-feather="headphones"></i></span>
+                            <span >Support</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="hk_nav_backdrop" ></div>
+    <!-- /Vertical Nav -->
+
+    <!-- Setting Panel -->
+    <div >
+        <div >
+            <div >
+                <div >
+                    <a href="javascript:void(0);" id="settings_panel_close" ><span
+                            ><i data-feather="x"></i></span></a>
+                </div>
+                <hr>
+
+                <h6 >Navigation</h6>
+                <p >Menu comes in two modes: dark & light</p>
+                <div >
+                    <button type="button" id="nav_light_select"
+                            ><span ><i
+                            ></i> </span><span >Light Mode</span></button>
+                    <button type="button" id="nav_dark_select"
+                            ><span
+                            ><i ></i> </span><span
+                            >Dark Mode</span></button>
+                </div>
+                <hr>
+                <h6 >Top Nav</h6>
+                <p >Choose your liked color mode</p>
+                <div >
+                    <button type="button" id="navtop_light_select"
+                            ><span ><i
+                            ></i> </span><span >Light Mode</span></button>
+                    <button type="button" id="navtop_dark_select"
+                            ><span
+                            ><i ></i> </span><span
+                            >Dark Mode</span></button>
+                </div>
+                <hr>
+                <div >
+                    <h6>Scrollable Header</h6>
+                    <div ></div>
+                </div>
+                <button id="reset_settings" >Reset</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Setting Panel -->
+
+    <!-- Main Content -->
+    <div >
+        <!-- Container -->
+        <div >
+            <!-- Row -->
+            <div >
+                <div >
+                    {% if messages %}
+
+                    <div >
+                        {% for message in messages %}
+                        <div >
+                            {{message }}
+                        </div>
+
+                        {% endfor %}
+                    </div>
+
+                    {% endif %}
+
+                    <div >
+                        <div  role="tabpanel">
+                            <div >
+                                <div >
+                                    <div >
+                                        <div >
+                                            <div >
+                                                <div >
+                                                    {% if user.profile.image %}
+                                                    <img src="{{user.profile.image.url}}" alt="user image"
+                                                         
+                                                         style="height: 6em; width: 6em; border-radius: 10px; ">
+                                                    {% else %}
+                                                    <img src="{% static 'core/img/user-default-image.png' %}"
+                                                         alt="admin"
+                                                         style="height: 6em; width: 6em; border-radius: 10px; "
+                                                         >
+                                                    {%endif %}
+                                                </div>
+
+                                            </div>
+                                            <div >
+                                                <div >
+                                                    <h2 > {{ user }}</h2>
+                                                    <br>
+                                                    {% if user.profile.age_visible %}
+                                                    <span >Age :
+                                                                {% if user.profile.age %}
+                                                                    {{user.profile.age}}
+                                                                {% endif %}
+                                                        </span>
+                                                    {%else %}
+                                                    <span >Age : Hidden </span>
+                                                    {%endif%}
+
+                                                    <span >
+                                                        nationality : {{user.profile.nationality}}
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                            <div >
+                                                <div >
+                                                    <h5 >
+                                                        Role :
+                                                    </h5>
+                                                    <br>
+                                                    {% if user.is_staff %}
+                                                    <span >  Admin *</span>
+                                                    {% endif %}
+
+                                                    {% if user.profile.is_teacher %}
+                                                    <span > Teacher *</span>
+
+                                                    {%else %}
+                                                    <span > Student</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div >
+                                            <h5>Education : </h5>
+                                            {% if user.profile.education_visible %}
+
+                                            <p >
+                                                {{user.profile.education}}</p>
+                                            {%else %}
+                                            <span >  Hidden </span>
+                                            {%endif%}
+                                            <br>
+                                            <br>
+                                            <h5>Bio : </h5>
+                                            <p > {{user.profile.bio}}</p>
+                                        </div>
+
+                                        <br>
+
+                                        <div >
+                                            <div >
+                                                <h5> Languages : </h5>
+                                                {% for language in user.profile.languages.all %}
+                                                <span > - {{language}}</span>
+                                                {%endfor %}
+                                            </div>
+
+                                        </div>
+
+                                        <br>
+                                        <br><br>
+                                        <div >
+
+                                            <!-- article-->
+                                            <div >
+                                                <h3 > {{ user }}'s Articles</h3>
+                                                <br/>
+                                                {% if user.profile.article_visible %}
+
+                                                {% if articles %}
+                                                {% for article in articles %}
+                                                <h5 > {{article.title}}</h5>
+
+                                                <details  name="article">
+
+                                                    <p >
+                                                    <h5> intro text : </h5>
+                                                    {{article.intro_txt | truncatewords:15|safe}}
+                                                    </p>
+                                                    <p >
+                                                    <h5> description : </h5>
+                                                    {{article.description |truncatewords:80|safe}}</p>
+                                                    <br>
+                                                    <span > {{article.submit_date}}</span>
+
+                                                    {% if article.status == 'a' %}
+                                                    <span >status : Approved</span>
+                                                    <br>
+                                                    <a 
+                                                       href="{% url 'blog:blog-detail' article.slug %} ">
+                                                        See in Blogs
+                                                    </a>
+
+
+                                                    {% elif article.status == 'na' %}
+                                                    <span >status : Not Approved </span>
+                                                    {%else %}
+                                                    <span >status : Wating </span>
+                                                    {% endif %}
+
+
+                                                </details>
+                                                <br>
+                                                {%endfor%}
+                                                {%else %}
+                                                <span>  No Articles Submitted Yet.</span>
+                                                {%endif%}
+
+                                                {%else %}
+                                                <span>  Hidden </span>
+                                                {%endif%}
+
+
+                                            </div>
+
+                                            <!-- Courses-->
+                                            <div >
+
+                                                <h3 > {{ user }}'s Courses</h3>
+                                                <br/>
+                                                {% if user.profile.course_visible %}
+
+                                                {% if courses %}
+                                                {% for course in courses %}
+                                                <h5 > {{course.title}}</h5>
+                                                <details  name="vidio">
+
+                                                    <p >
+                                                    <h5> intro text : </h5>
+                                                    {{course.intro_txt | truncatewords:15|safe}}
+                                                    </p>
+                                                    <p >
+                                                    <h5> description : </h5>
+                                                    {{course.description |truncatewords:80|safe}}</p>
+                                                    <br>
+                                                    {% for video in course.videos.all %}
+                                                    <h4 >{{ video.title }}</h4>
+                                                    {% if video.description %}
+                                                    <p >{{ video.description|safe }}</p>
+                                                    {% endif %}
+                                                    <div >
+
+                                                        <video style="margin: auto" {% if video.thumbnai %}
+                                                               poster="{{ video.thumbnail.url }}" {% endif %}
+                                                               width="100%" height="400" controls
+                                                               controlslist="nodownload">
+                                                            <source src="{{ video.video_file.url }}" type="video/mp4">
+                                                            Your browser does not support the video tag.
+                                                        </video>
+
+                                                    </div>
+
+                                                    {% empty %}
+                                                    <p> There aren’t any videos included in this course .</p>
+                                                    {% endfor %}
+                                                    <span > {{course.submit_date}}</span>
+
+                                                    {% if course.status == 'a' %}
+                                                    <span >status : Approved</span>
+                                                    <br>
+                                                    <a 
+                                                       href="{% url 'course:course-detail' course.slug %}"> See in
+                                                        courses</a>
+
+                                                    {% elif course.status == 'na' %}
+                                                    <span >status : Not Approved </span>
+                                                    {%else %}
+                                                    <span >status : Wating </span>
+                                                    {% endif %}
+
+
+                                                </details>
+                                                <br>
+
+                                                {%endfor%}
+                                                {%else %}
+                                                <span>   No Courses Submitted Yet.</span>
+                                                {% endif %}
+
+                                                {%else %}
+                                                <span>  Hidden </span>
+                                                {%endif%}
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div >
+                                        <br>
+                                        <br>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Row -->
+        </div>
+        <!-- /Container -->
+
+        <!-- Footer -->
+        <div >
+            <footer >
+                <div >
+                    <div >
+                        <p>Developed by<a href=""  target="_blank">Ali</a> ©
+                            2024
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /Footer -->
+
+    </div>
+    <!-- /Main Content -->
+
+</div>
+<!-- /HK Wrapper -->
+
+<!-- jQuery -->
+
+</body>
+
+</html>

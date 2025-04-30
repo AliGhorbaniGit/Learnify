@@ -1,0 +1,41 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block script %}
+<link rel="stylesheet" href="{% static 'core' %}"/>
+{% endblock script %}
+{% block title %} LEARNIFY | FAQ {% endblock title %}
+{% block content %}
+<header >
+    <div >
+        <div >
+            <ul >
+                <li >
+                    <a href="{% url 'core:home' %}" >Home</a>
+                </li>
+
+                <li >FAQ</li>
+            </ul>
+        </div>
+    </div>
+
+
+</header>
+<main>
+
+    <section >
+
+        <div >
+            <div >
+                <h2  data-aos="fade-down">Your Common Questions </h2>
+                <p  data-aos="fade-up">
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+{% endblock content %}

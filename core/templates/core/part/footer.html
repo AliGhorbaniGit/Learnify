@@ -1,0 +1,93 @@
+{% load static %}
+
+<footer >
+    <div >
+        <div >
+            <div  data-order="1">
+                <div >
+                    <a  href="{% url 'core:home' %}">
+                        <span >
+    
+                        </span>
+                        <span >
+                            <span >LEANYFI</span>
+                        </span>
+                    </a>
+                </div>
+                <p >
+                    Curabitur non libero at lorem finibus lobortis. Ut auctor egestas pretium. Proin nunc ligula, venenatis tempor
+                </p>
+                <ul >
+                    <li >
+                        <a  href="" target="_blank" rel="noopener noreferrer">
+                            <i ></i>
+                        </a>
+                    </li>
+                    <li >
+                        <a  href="" target="_blank" rel="noopener noreferrer">
+                            <i ></i>
+                        </a>
+                    </li>
+                    <li >
+                        <a  href="" target="_blank" rel="noopener noreferrer">
+                            <i ></i>
+                        </a>
+                    </li>
+                </ul>
+                <div >
+                    <a  href="mailto:example@domain.com">
+                        <i ></i>
+                
+                    </a>
+                    <a  href="tel:+123456789">
+                        <i ></i>
+                        +1-444-444-444
+                    </a>
+                </div>
+            </div>
+            <div  data-order="2">
+                <h5 >Information:</h5>
+                <ul >
+                    <li >
+                        <a  href="{% url 'core:about-us' %}">About This Project</a>
+                    </li>
+                    <li >
+                        <a  href="{% url 'core:contact-us' %} ">Contact Us</a>
+                    </li>
+                    <li >
+                        <a  href="{% url 'course:courses-list' %}">All Courses</a>
+                    </li>
+                    <li >
+                        <a  href="{% url 'blog:blogs-list' %}">From the Blog</a>
+                    </li>
+
+                    <li >
+                        <a  href="{% url 'core:faq' %}">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div  data-order="3">
+                <h5 >Popular Courses:</h5>
+                <ul >
+                    {% for course in top_rated_courses %}
+                    <li >
+                        <span ></span>
+                        <a  href="{% url 'course:course-detail' course.slug%}">{{ course.title }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div >
+        <div >
+            <a  id="scrollToTop" href="https://t.me/AliGhorbani_Ali">
+                <i ></i>
+            </a>
+            <p >
+                © <span id="currentYear"></span>
+                <a href="https://t.me/AliGhorbani_Ali" target="_blank"> / Developed by Ali </a>
+            </p>
+        </div>
+    </div>
+</footer>

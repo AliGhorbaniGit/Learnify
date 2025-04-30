@@ -1,0 +1,136 @@
+{% extends 'core/index.html' %}
+{% load static %}
+
+{% block script %}
+<link rel="stylesheet" href="{% static 'core' %}"/>
+{% endblock script %}
+
+{% block title %} LEARNIFY | Contact Us {% endblock title %}
+{% block content %}
+<header >
+    <div >
+        <div >
+            <ul >
+                <li >
+                    <a href="{% url 'core:home' %}" >Home</a>
+                </li>
+
+                <li >Contact Us</li>
+            </ul>
+        </div>
+    </div>
+
+    <div >
+        <div ></div>
+        <div >
+            <div >
+                <h1 >Contact Us</h1>
+
+            </div>
+
+            <main >
+                <section >
+                    <div >
+                        <div >
+                            <h2 >Our experts will help you</h2>
+
+                            <p >
+                                If you have questions about the format or do not know what to choose, leave your
+                                request: we will be
+                                happy to
+                                answer all your questions.
+                            </p>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <form  action="{% url 'core:contact-us' %}" method="post"
+                              data-type="contacts">
+                            {%csrf_token%}
+
+                            {% for field in form %}
+                            <div >
+                                {% if field.errors %}
+                                <div >
+                                    <ul>
+                                        {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+
+                            <div >
+                                <input  type="text" id="title" name="title" maxlength="200"
+                                       placeholder="Enter task title" required>
+                            </div>
+
+                            <textarea  placeholder="Your message here"
+                                      name="description" data-type="message" required></textarea>
+
+                            <div >
+                                <div >
+                                    <div >
+                                        <input type="checkbox" name="dataProcessing" id="dataProcessing" checked
+                                               required/>
+                                        <label for="dataProcessing">I agree to the terms of data processing. </label>
+                                    </div>
+                                    <a  href="{% url 'core:terms' %}">Terms and Conditions</a>
+                                </div>
+                                <button  type="submit">
+                                    <span >Send</span>
+                                </button>
+                            </div>
+
+                        </form>
+
+                        {% else %}
+                        <a  href="{% url 'account_login' %}">
+                            <span >Please Login to send a ticket</span>
+                        </a>
+
+                        {% endif %}
+
+
+                    </div>
+                </section>
+    
+            </main>
+
+        
+                <li  data-aos="fade-up">
+                    <div >
+                        <div >
+                            <i ></i>
+                          
+                        </div>
+                    </div>
+                </li>
+                <li  data-aos="fade-up" data-aos-delay="50">
+                    <div >
+                        <div >
+                            <i ></i>
+                            <div >
+                                <a  href="tel:+1234567890">+1-202-555-0150</a>
+                                <a  href="tel:+1234567890">+1-202-555-0151</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li  data-aos="fade-up" data-aos-delay="100">
+                    <div >
+                        <div >
+                            <i ></i>
+                            <div >
+                                <a  href="mailto:example@domain.com">acadesiq@mail.de</a>
+                                <a  href="mailto:example@domain.com">hacades@sendmeil.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+{% endblock content %}

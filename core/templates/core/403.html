@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WDX407XRTC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-WDX407XRTC');
+    </script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>403 | LEARNIFY</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet preload" as="style" href="{% static 'core/css/preload.min.css' %}"/>
+    <link rel="stylesheet preload" as="style" href="{% static 'core/css/libs.min.css' %}"/>
+    <link rel="shortcut icon" href="{% static 'core/svg/logo.svg' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'core/svg/logo.svg' %}">
+
+    <link rel="stylesheet" href="{% static 'core/css/error.min.css' %}"/>
+</head>
+<body >
+{% include 'core/part/promobar.html' %}
+<main >
+    <div >
+        <div >
+            <lottie-player
+                    src="{% static 'lottie/404.json' %}"
+                    background="transparent"
+                    speed="1"
+                    style="width: 100%; height: 100%"
+                    loop
+                    autoplay
+            ></lottie-player>
+            <div >
+                <div  data-aos="fade-in">
+                    <div >
+                        <picture>
+                            <source data-srcset="{% static 'core/img/placeholder.jpg' %}"
+                                    srcset="{% static 'core/img/placeholder.jpg' %}"/>
+                            <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                 src="{% static 'core/img/placeholder.jpg' %}" alt="media"/>
+                        </picture>
+                    </div>
+                </div>
+                <div  data-aos="fade-in" data-aos-delay="50">
+                    <div >
+                        <picture>
+                            <source data-srcset="{% static 'core/img/placeholder.jpg' %}"
+                                    srcset="{% static 'core/img/placeholder.jpg' %}"/>
+                            <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                 src="{% static 'core/img/placeholder.jpg' %}" alt="media"/>
+                        </picture>
+                        <div  data-aos="fade-in" data-aos-delay="100">
+                            <div >
+                                <picture>
+                                    <source data-srcset="{% static 'core/img/placeholder.jpg' %}"
+                                            srcset="{% static 'core/img/placeholder.jpg' %}"/>
+                                    <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                         src="{% static 'core/img/placeholder.jpg' %}" alt="media"/>
+                                </picture>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  data-aos="fade-in" data-aos-delay="150">
+                    <div >
+                        <picture>
+                            <source data-srcset="{% static 'core/img/placeholder.jpg' %}"
+                                    srcset="{% static 'core/img/placeholder.jpg' %}"/>
+                            <img  data-src="{% static 'core/img/placeholder.jpg' %}"
+                                 src="{% static 'core/img/placeholder.jpg' %}" alt="media"/>
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p >
+        <h1 >403 Forbidden</h1>
+        <p >You do not have permission to access this resource.You can return to the homepage </p>
+        </p>
+        <a  href="{% url 'core:home' %}">
+            <span >Back to Home page</span>
+        </a>
+    </div>
+</main>
+<footer >
+    <a  href="{% url 'core:home' %}">
+        <div >
+            <a  href="{% url 'core:home' %}">
+                <span >
+                    <img src="{% static 'core/svg/logo.svg' %}" alt="LEARNIFY"/>
+                </span>
+
+            </a>
+        </div>
+    </a>
+</footer>
+<script src="{% static 'core/' %}"></script>
+</body>
+</html>
