@@ -34,7 +34,7 @@ sitemaps = {
 }
 
 admin.site.site_header = 'Admin'
-admin.site.index_title = 'Edrock'
+admin.site.index_title = 'LEARNYFI'
 
 urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
@@ -57,3 +57,4 @@ handler404 = custom_404_view
 handler403 = custom_forbidden_view
 handler400 = custom_bad_request_view
 handler500 = custom_500_view
+
