@@ -17,7 +17,10 @@ Learnify is a dynamic educational platform that facilitates the sharing of knowl
   - Overview of other users' profiles  
 - **Community & Collaboration**  
   - Users can request new courses  
-  - Articles and tutorials curated by students  
+  - Articles and tutorials curated by students
+- **Interaction & Feedback**  
+  - Commenting on articles and tutorials  
+  - Rating and review system for content  
 - **Admin & Moderation**  
   - Error handling and custom error pages  
   - Admin panel with customized fields  
