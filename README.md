@@ -50,7 +50,8 @@ Learnify is a dynamic educational platform that facilitates the sharing of knowl
 - Custom error handlers  
 - Ticketing system for user support  
 - Query optimization techniques  
-- Testing framework (unit test)  
+- Testing framework (unit test)
+- Docker
 
 ---  
 
@@ -59,7 +60,8 @@ Learnify is a dynamic educational platform that facilitates the sharing of knowl
 - Python 3.10+  
 - Pipenv or virtual environment  
 - MySQL server  
-- AWS credentials (for storage)  
+- AWS credentials (for storage)
+- Docker
 
 ---  
 
