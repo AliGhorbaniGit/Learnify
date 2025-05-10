@@ -24,6 +24,7 @@ mysqlclient==2.2.7
 oauthlib==3.2.2
 packaging==24.1
 pillow==11.2.1
+psycopg2==2.9.10
 pycparser==2.22
 PyJWT==2.9.0
 python-dateutil==2.9.0.post0
