@@ -31,7 +31,7 @@ Learnify is a dynamic educational platform that facilitates the sharing of knowl
   - Article submission and review workflows  
   - Multi-platform storage support via Django Storages and AWS  
 - **Performance & Optimization**  
-  - Query optimization with up to 40% improvement  
+  - Query optimization with up to 20% improvement  
 - **Testing**  
   - Comprehensive test suite to ensure stability and quality  
 - **Additional**  
