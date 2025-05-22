@@ -23,7 +23,7 @@ class Home(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context["random_tags"] = Tag.objects.order_by('?')[:5]
         context['top_rated_courses'] = Course.top_rated_courses(limit=3).select_related('teacher__user')
-        context['home_page'] = 'home'
+        context['current_path'] = self.request.path
         return context
 
 
