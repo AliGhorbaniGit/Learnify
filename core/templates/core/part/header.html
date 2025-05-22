@@ -28,7 +28,7 @@
         <nav  id="headerMenu">
             <ul >
                 <li >
-                    <a  href="{% url 'core:home' %}" {% if home_page %} data-page="home"
+                    <a  href="{% url 'core:home' %}" {% if current_path == "/home/" %} data-page="home"
                        {% endif %}>Home</a>
                 </li>
                 <li >
