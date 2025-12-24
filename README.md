@@ -77,7 +77,7 @@ Edit `.env` and set the required values.
 ---
 
 
-## Backend setup & run
+## setup & run
 
 Create virtual environment:
 
@@ -131,5 +131,6 @@ http://127.0.0.1:8000/
 ```
 
 ---
+
 
 
