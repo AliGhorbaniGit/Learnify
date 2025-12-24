@@ -65,3 +65,71 @@ Learnify is a dynamic educational platform that facilitates the sharing of knowl
 
 ---  
 
+
+## environment setup
+
+```bash
+cp .example.env .env
+```
+
+Edit `.env` and set the required values.
+
+---
+
+
+## Backend setup & run
+
+Create virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate virtual environment:
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+**Windows**
+
+```bat
+venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run migrations:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Create superuser:
+
+```bash
+python manage.py createsuperuser
+```
+
+Run development server:
+
+```bash
+python manage.py runserver
+```
+
+Open in browser:
+
+```
+http://127.0.0.1:8000/
+```
+
+---
+
+
